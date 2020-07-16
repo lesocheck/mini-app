@@ -1,0 +1,11 @@
+<div class="paginator" [class.withPages]="pagesCount > 1">
+  <div class="paginator__pages-wrap">
+    <span
+      *ngFor="let page of pages"
+      class="paginator__num"
+      [ngClass]="{ current: page == currentPage + 1 }"
+      (click)="gotoPage(page - 1)"
+      >{{ getPage(page) }}</span
+    >
+  </div>
+</div>

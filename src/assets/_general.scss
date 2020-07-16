@@ -1,0 +1,139 @@
+body {
+  background: rgb(248, 249, 252);
+  padding: 0;
+  margin: 0;
+}
+.content {
+  margin: 0 auto;
+  max-width: initial !important;
+  padding: 0 0 30px;
+  font-family: "Helvetica Neue", sans-serif;
+
+  &__header {
+    height: 49px;
+    border-bottom: 1px solid #E6EDFB;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__body {
+    padding: 0 20px;
+  }
+}
+.back-link {
+  a {
+    font-size: 22px;
+    line-height: 28px;
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    span {
+      color: #00AAFF;
+      font-size: 17px;
+      margin-right: 7px;
+    }
+  }
+}
+.animal {
+  &-line {
+    margin-bottom: 10px;
+    display: flex;
+  }
+  &-param {
+    font-size: 14px;
+    font-weight: 300;
+    color: #97A4B1;
+    margin-right: 15px;
+    line-height: 18px;
+    justify-content: flex-end;
+    display: flex;
+    width: 30%;
+    align-items: center;
+  }
+  &-value {
+    font-size: 14px;
+    font-weight: 300;
+    color: #000000;
+    margin-left: 15px;
+    border-bottom: 1px solid #DAE1E6;
+    line-height: 18px;
+    min-height: 34px;
+    word-break: break-all;
+    display: flex;
+    width: 70%;
+    justify-content: flex-start;
+    word-break: break-word;
+    align-items: center;
+  }
+}
+body .ui-splitbutton.ui-buttonset .ui-button {
+  background: #e6edfb;
+  color: #000000;
+  box-shadow: none;
+  outline: none;
+  .pi-chevron-down:before {
+    content: "\e950";
+  }
+  &.ui-button-text-icon-left {
+    display: none;
+  }
+}
+body .ui-button {
+  background: #e6edfb;
+  color: #000000;
+  box-shadow: none;
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  color: #292b2c;
+  &:enabled {
+    &:hover, &:active {
+      box-shadow: none;
+      outline: none;
+      background-color: #aec5ec;
+      color: #292b2c;
+    }
+  }
+
+}
+input {
+  height: 30px;
+  border: 1px solid #DAE1E6;
+  border-radius: 3px;
+  outline: none;
+  width: 100%;
+  display: inline-block;
+  line-height: 28px;
+  padding: 0 10px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 300;
+  color: #000000;
+}
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("./images/loading_gif_src_2.gif") no-repeat center #fff;
+  background-size: 100px;
+}
+.vertA-middle {
+  display: flex;
+  align-items: center;
+}
+.columnA-middle {
+  justify-content: space-around;
+  flex-direction: column;
+}
+h5 {
+  font-size: 20px;
+}
+p-splitButton {
+  margin-left: 10px;
+}

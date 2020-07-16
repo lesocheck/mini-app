@@ -1,0 +1,5 @@
+export * from "./main/main.component"
+export * from "./table/table.component"
+export * from "./paginator/paginator.component"
+export * from "./animals-list/animals-list.component"
+export * from "./animal-item/animal-item.component"

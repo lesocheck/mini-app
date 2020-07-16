@@ -1,0 +1,23 @@
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(to right, #fff 35% #fff 100%);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cddbf4;
+}
+
+* {
+  scrollbar-base-color: #cddbf4;
+  scrollbar-3dlight-color: #ffffff;
+  scrollbar-highlight-color: #ffffff;
+  scrollbar-track-color: #ffffff;
+  scrollbar-arrow-color: #ffffff;
+  scrollbar-shadow-color: #ffffff;
+  scrollbar-dark-shadow-color: #ffffff;
+}
+

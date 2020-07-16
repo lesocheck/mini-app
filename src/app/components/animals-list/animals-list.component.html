@@ -1,0 +1,16 @@
+<div class="content__header">
+  <div class="back-link">
+    <a (click)="goBack()">
+      <span class="pi pi-arrow-left"></span>
+      Back
+    </a>
+  </div>
+</div>
+<div class="content__body">
+  <app-table [records$]="records$"
+             [qp]="qp"
+             (rowClicked)="navigateToItem($event)"
+             (navigateToPage)="navigateToPage($event)">
+  </app-table>
+</div>
+<div class="loading" *ngIf="isInProgress"></div>

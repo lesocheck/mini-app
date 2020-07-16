@@ -1,0 +1,30 @@
+.paginator {
+  margin-bottom: 12px;
+  display: flex;
+  &.withPages {
+    justify-content: center;
+  }
+  justify-content: flex-end;
+  &__num {
+    display: inline-block;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #292b2c;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  .current {
+    background-color: #fff;
+    border: 1px solid #aec5ec;
+  }
+
+  .active {
+    cursor: pointer;
+    color: #5080d8;
+  }
+
+}

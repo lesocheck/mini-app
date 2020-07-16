@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mini-app-e8d6b": {
+      "hosting": {
+        "mini-app": [
+          "mini-app-e8d6b"
+        ]
+      }
+    }
+  }
+}

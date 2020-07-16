@@ -1,0 +1,95 @@
+<div class="block">
+  <div class="toolbar"></div>
+  <div class="divider"></div>
+  <div class="body__tabl__wrap">
+    <div class="body__tabl custom-scroll__slim" style="padding-bottom: 10px;">
+      <p-table [value]="records$?.result">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Animal Id</th>
+            <th>Event Id</th>
+            <th>Cow Id</th>
+            <th>Type</th>
+            <th>New Group Id</th>
+            <th>Current Group Id</th>
+            <th>New Group Name</th>
+            <th>Current Group Name</th>
+            <th>Destination Group</th>
+            <th>Destination Group Name</th>
+            <th>Age In Days</th>
+            <th>Date start</th>
+            <th>Original Date Start</th>
+            <th>Date end</th>
+            <th>Min date value</th>
+            <th>Lactation number</th>
+            <th>Old lactation number</th>
+            <th>Days In Lactation</th>
+            <th>Days In Pregnancy</th>
+            <th>Reporting Date</th>
+            <th>Health Index</th>
+            <th>Health Index Peak</th>
+            <th>Heat Index Peak</th>
+            <th>Duration</th>
+            <th>Alert Type</th>
+            <th>Calving Ease</th>
+            <th>New Borns</th>
+            <th>Cow Entry Status</th>
+            <th>Birth Date Calculated</th>
+            <th>Sire</th>
+            <th>BreedingNumber</th>
+            <th>Is Out Of Breeding Window</th>
+            <th>Interval</th>
+            <th>Heat Index Peak</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cow>
+          <tr (click)="onRowClicked(cow.animalId)">
+            <td>{{cow.animalId}}</td>
+            <td>{{cow.eventId}}</td>
+            <td>{{cow.cowId}}</td>
+            <td>{{cow.type}}</td>
+            <td>{{cow.newGroupId}}</td>
+            <td>{{cow.currentGroupId}}</td>
+            <td>{{cow.newGroupName}}</td>
+            <td>{{cow.currentGroupName}}</td>
+            <td>{{cow.destinationGroup}}</td>
+            <td>{{cow.destinationGroupName}}</td>
+            <td>{{cow.ageInDays}}</td>
+            <td>{{cow.startDateTime}}</td>
+            <td>{{cow.originalDateStart}}</td>
+            <td>{{cow.endDateTime}}</td>
+            <td>{{cow.minDateValue}}</td>
+            <td>{{cow.lactationNumber}}</td>
+            <td>{{cow.oldLactationNumber}}</td>
+            <td>{{cow.daysInLactation}}</td>
+            <td>{{cow.daysInPregnancy}}</td>
+            <td>{{cow.reportingDate}}</td>
+            <td>{{cow.healthIndex}}</td>
+            <td>{{cow.healthIndexPeak}}</td>
+            <td>{{cow.duration}}</td>
+            <td>{{cow.alertType}}</td>
+            <td>{{cow.calvingEase}}</td>
+            <td>{{cow.newBorns}}</td>
+            <td>{{cow.cowEntryStatus}}</td>
+            <td>{{cow.birthDateCalculated}}</td>
+            <td>{{cow.sire}}</td>
+            <td>{{cow.breedingNumber}}</td>
+            <td>{{cow.isOutOfBreedingWindow}}</td>
+            <td>{{cow.interval}}</td>
+            <td>{{cow.heatIndexPeak}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div>
+    <table-paginator
+      [rowsPerPage]="qp?.limit"
+      [totalRows]="records$?.totalRecords"
+      [pagesCount]="getPageCount()"
+      [currentPage]="getPageNumber()"
+      (pageSelected)="goToPage($event)"
+    ></table-paginator>
+  </div>
+</div>
+
