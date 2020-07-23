@@ -3,6 +3,7 @@ body {
   padding: 0;
   margin: 0;
 }
+
 .content {
   margin: 0 auto;
   max-width: initial !important;
@@ -22,6 +23,7 @@ body {
     padding: 0 20px;
   }
 }
+
 .back-link {
   a {
     font-size: 22px;
@@ -36,6 +38,7 @@ body {
     }
   }
 }
+
 .animal {
   &-line {
     margin-bottom: 10px;
@@ -60,7 +63,6 @@ body {
     border-bottom: 1px solid #DAE1E6;
     line-height: 18px;
     min-height: 34px;
-    word-break: break-all;
     display: flex;
     width: 70%;
     justify-content: flex-start;
@@ -68,6 +70,11 @@ body {
     align-items: center;
   }
 }
+
+.ui-inputwrapper-filled.animal-value, p-calendar.animal-value, p-inputswitch.animal-value{
+  border: none;
+}
+
 body .ui-splitbutton.ui-buttonset .ui-button {
   background: #e6edfb;
   color: #000000;
@@ -80,9 +87,9 @@ body .ui-splitbutton.ui-buttonset .ui-button {
     display: none;
   }
 }
+
 body .ui-button {
   background: #e6edfb;
-  color: #000000;
   box-shadow: none;
   outline: none;
   border: none;
@@ -98,22 +105,23 @@ body .ui-button {
       color: #292b2c;
     }
   }
-
 }
-input {
-  height: 30px;
+
+input, body .ui-inputtext {
+  line-height: 18px;
+  min-height: 34px;
   border: 1px solid #DAE1E6;
   border-radius: 3px;
   outline: none;
   width: 100%;
   display: inline-block;
-  line-height: 28px;
   padding: 0 10px;
   margin: 0;
   font-size: 13px;
   font-weight: 300;
   color: #000000;
 }
+
 .loading {
   position: fixed;
   top: 0;
@@ -123,17 +131,21 @@ input {
   background: url("./images/loading_gif_src_2.gif") no-repeat center #fff;
   background-size: 100px;
 }
+
 .vertA-middle {
   display: flex;
   align-items: center;
 }
+
 .columnA-middle {
   justify-content: space-around;
   flex-direction: column;
 }
+
 h5 {
   font-size: 20px;
 }
+
 p-splitButton {
   margin-left: 10px;
 }

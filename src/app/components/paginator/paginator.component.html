@@ -3,8 +3,8 @@
     <span
       *ngFor="let page of pages"
       class="paginator__num"
-      [ngClass]="{ current: page == currentPage + 1 }"
-      (click)="gotoPage(page - 1)"
+      [ngClass]="{ current: page == currentPage }"
+      (click)="gotoPage(page)"
       >{{ getPage(page) }}</span
     >
   </div>

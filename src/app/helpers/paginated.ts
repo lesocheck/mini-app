@@ -3,8 +3,8 @@ import {IQueryParameters} from "./query-parametrs";
 export class Paginated<T> {
   result: Array<T>;
   query: IQueryParameters;
-  readonly totalRecords: string;
-  constructor(query: IQueryParameters, payload: Array<T> = [], totalRecords: string) {
+  readonly totalRecords: number;
+  constructor(query: IQueryParameters, payload: Array<T> = [], totalRecords: number) {
     this.query = query;
     this.result = payload;
     this.totalRecords = totalRecords;

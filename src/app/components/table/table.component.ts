@@ -1,7 +1,8 @@
 import {
   Component, Input, Output, EventEmitter
 } from '@angular/core';
-import {IQueryParameters, Paginated} from "../../helpers";
+import {IQueryParameters, Paginated} from '../../helpers';
+import {IAnimalListItem} from '../../models';
 
 @Component({
   selector: 'app-table',
@@ -10,20 +11,19 @@ import {IQueryParameters, Paginated} from "../../helpers";
 })
 
 export class TableComponent {
-  @Input() records$: Paginated<any>;
+  @Input() records$: Paginated<IAnimalListItem>;
   @Input() qp: IQueryParameters;
   @Output() navigateToPage = new EventEmitter<number>();
   @Output() rowClicked = new EventEmitter<number>();
 
   constructor() {}
 
-
   getPageNumber() {
-    return this.qp.offset / 10;
+    return this.qp.endAt / 10;
   }
 
   getPageCount() {
-    if(this.records$) {
+    if (this.records$) {
       return (Math.ceil(+this.records$.totalRecords / 10));
     }
   }

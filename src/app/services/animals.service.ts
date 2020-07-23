@@ -1,58 +1,40 @@
 import {Injectable} from '@angular/core';
 import {IAnimalListItemApiContract} from '../api-contract';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {getAnimalListItem, IAnimalListItem} from '../models';
 import {map} from 'rxjs/operators';
-import {getQueryParametersAPIContract, IQueryParameters, Paginated} from '../helpers';
+import {IQueryParameters, Paginated} from '../helpers';
 import {Router} from '@angular/router';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 
 export class AnimalsService {
-  protected headers: HttpHeaders = undefined;
-  url = 'http://localhost:4000';
-  constructor(protected http: HttpClient, private router: Router, private firestore: AngularFirestore) {}
+  constructor( private router: Router, private firestore: AngularFirestore) { }
 
-  public loadAnimalList(qp: IQueryParameters): Observable<Paginated<IAnimalListItem>> {
-    return this.http
-      .get<IAnimalListItemApiContract[]>(
-        `${this.url}/result?${getQueryParametersAPIContract(qp)}`,
-        {
-          headers: this.headers,
-          observe: 'response'
+  loadAnimalList(qp: IQueryParameters): Observable<Paginated<IAnimalListItem>> {
+    return this.firestore.collection('result')
+      .snapshotChanges()
+      .pipe(map(t  => new Paginated(qp, t.map(e  =>
+        ({
+            id: e.payload.doc.id,
+            ...e.payload.doc.data() as IAnimalListItemApiContract
         })
-      .pipe(map(t  => new Paginated(qp, t.body, t.headers.get('X-Total-Count')).mapTo(getAnimalListItem)));
+      ), t.length).mapTo(getAnimalListItem) ));
   }
 
-  loadAnimalList2() {
-    return this.firestore.collection('result').snapshotChanges();
-  }
-
-
-
-
-  public loadAnimalItem(id: string): Observable<IAnimalListItem> {
-    return this.http
-      .get<IAnimalListItemApiContract>(
-        `${this.url}/result?animalId=${id}`,
-        {
-          headers: this.headers,
+  loadAnimalItem(id: string) {
+    return this.firestore.collection('result').doc(id).get()
+      .pipe(map(t  =>
+        getAnimalListItem ({
+          id: t.id,
+          ...t.data() as IAnimalListItemApiContract
         })
-      .pipe(map(t  => getAnimalListItem(t[0])));
+      ));
   }
 
-  public saveAnimalChanges(item: IAnimalListItem) {
-    // return this.http
-    //   .get<IAnimalListItemApiContract>(
-    //     `${this.url}/result?animalId=`,
-    //     {
-    //       headers: this.headers,
-    //     })
-    //   .pipe(map(t  => getAnimalListItem(t[0])));
-
-    this.firestore.doc('result/' + item.animalId).update(item).then(() => {
+  saveAnimalChanges(item: IAnimalListItem) {
+    this.firestore.doc('result/' + item.id).update(item).then(() => {
       console.log('Document successfully updated!');
       this.router.navigate(['animals']);
     }).catch((error) => {
@@ -60,7 +42,16 @@ export class AnimalsService {
     });
   }
 
-  public deleteAnimal(id: string) {
+  addNewAnimal(item: IAnimalListItem) {
+    return this.firestore.collection('result').add(item).then(() => {
+      console.log('Document successfully created!');
+      this.router.navigate(['animals']);
+    }).catch((error) => {
+      console.error('Error creating document: ', error);
+    });
+  }
+
+  deleteAnimal(id: string) {
     this.firestore.doc('result/' + id).delete().then(() => {
       console.log('Document successfully deleted!');
       this.router.navigate(['animals']);

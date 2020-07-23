@@ -1,185 +1,175 @@
 <div class="content__header">
-      <div class="back-link">
-        <a (click)="goBack()">
-          <span class="pi pi-arrow-left"></span>
-          Back
-        </a>
-      </div>
+  <div class="back-link">
+    <a (click)="goBack()">
+      <span class="pi pi-arrow-left"></span>
+      Back
+    </a>
+  </div>
   <div class="vertA-middle">
-    <p-button icon="pi pi-save" *ngIf="isEditable" (onClick)="save()"></p-button>
-    <p-splitButton label="Save" icon="pi pi-ellipsis-v" [model]="menuItems"></p-splitButton>
+    <p-button icon="pi pi-save" *ngIf="isEditable" (onClick)="isAdd ? save(true) : save(false)"></p-button>
+    <p-splitButton *ngIf="!isAdd" label="Save" icon="pi pi-ellipsis-v" [model]="menuItems"></p-splitButton>
   </div>
 
 
 </div>
 <form [formGroup]="form">
   <div class="content__body">
-    <div>
-      <div class="animal-line" *ngIf="animal?.animalId && !isEditable">
-        <span class="animal-param">Animal Id</span>
-        <span class="animal-value">{{ animal?.animalId }}</span>
-      </div>
-      <div class="animal-line" *ngIf="animal?.eventId && !isEditable">
-        <span class="animal-param">Event Id</span>
-        <span class="animal-value">{{ animal?.eventId }}</span>
-      </div>
-      <div class="animal-line" *ngIf="animal?.cowId && !isEditable">
-        <span class="animal-param">Cow Id</span>
-        <span class="animal-value">{{ animal?.cowId }}</span>
-      </div>
-      <div class="animal-line" *ngIf="animal?.type">
-        <span class="animal-param">Type</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.type }}</span>
-        <input type="text" *ngIf="isEditable" formControlName="type"/>
-      </div>
-      <div class="animal-line" *ngIf="animal?.newGroupId && !isEditable">
-        <span class="animal-param">New Group Id</span>
-        <span class="animal-value">{{ animal?.newGroupId }}</span>
-      </div>
-      <div class="animal-line" *ngIf="animal?.currentGroupId && !isEditable">
-        <span class="animal-param">Current Group Id</span>
-        <span class="animal-value">{{ animal?.currentGroupId }}</span>
-      </div>
-      <div class="animal-line" *ngIf="animal?.newGroupName">
-        <span class="animal-param">New Group Name</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.newGroupName }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="newGroupName" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.currentGroupName">
-        <span class="animal-param">Current Group Name</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.currentGroupName }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="currentGroupName" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.destinationGroup">
-        <span class="animal-param">Destination Group</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.destinationGroup }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="destinationGroup" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.destinationGroupName">
-        <span class="animal-param">Destination Group Name</span>
-        <span class="animal-value">{{ animal?.destinationGroupName }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="destinationGroupName" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.ageInDays">
-        <span class="animal-param">Age In Days</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.ageInDays }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="ageInDays" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.startDateTime">
-        <span class="animal-param">Date start</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.startDateTime }}</span>
-        <p-calendar *ngIf="isEditable" formControlName="startDateTime" [minDate]="form?.controls['minDateValue']?.value" [maxDate]="form?.controls['endDateTime']?.value"></p-calendar>
-      </div>
-      <div class="animal-line" *ngIf="animal?.originalDateStart">
-        <span class="animal-param">Original Date Start</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.originalDateStart }}</span>
-        <p-calendar [minDate]="form?.controls['minDateValue']?.value" *ngIf="isEditable" formControlName="originalDateStart"></p-calendar>
-      </div>
-      <div class="animal-line" *ngIf="animal?.endDateTime">
-        <span class="animal-param">Date end</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.endDateTime }}</span>
-        <p-calendar [minDate]="form?.controls['startDateTime']?.value" *ngIf="isEditable" formControlName="endDateTime"></p-calendar>
-      </div>
-      <div class="animal-line" *ngIf="animal?.minDateValue">
-        <span class="animal-param">Min date value</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.minDateValue }}</span>
-        <p-calendar *ngIf="isEditable" formControlName="minDateValue"></p-calendar>
-      </div>
-      <div class="animal-line" *ngIf="animal?.lactationNumber">
-        <span class="animal-param">Lactation number</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.lactationNumber }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="lactationNumber" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.oldLactationNumber">
-        <span class="animal-param">Old lactation number</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.oldLactationNumber }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="oldLactationNumber" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.daysInLactation">
-        <span class="animal-param">Days In Lactation</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.daysInLactation }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="daysInLactation" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.daysInPregnancy">
-        <span class="animal-param">Days In Pregnancy</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.daysInPregnancy }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="daysInPregnancy" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.reportingDate">
-        <span class="animal-param">Reporting Date</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.reportingDate }}</span>
-        <p-calendar *ngIf="isEditable" formControlName="reportingDate"></p-calendar>
-      </div>
-      <div class="animal-line" *ngIf="animal?.healthIndex">
-        <span class="animal-param">Health Index</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.healthIndex }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="healthIndex" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.healthIndexPeak">
-        <span class="animal-param">Heat Index Peak</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.healthIndexPeak }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="healthIndexPeak" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.duration">
-        <span class="animal-param">Duration</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.duration }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="duration" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.alertType">
-        <span class="animal-param">Alert Type</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.alertType }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="alertType" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.calvingEase">
-        <span class="animal-param">Calving Ease</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.calvingEase }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="calvingEase" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.newBorns">
-        <span class="animal-param">New Borns</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.newBorns }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="newBorns" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.cowEntryStatus">
-        <span class="animal-param">Cow Entry Status</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.cowEntryStatus }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="cowEntryStatus" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.birthDateCalculated">
-        <span class="animal-param">Birth Date Calculated</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.birthDateCalculated }}</span>
-        <p-inputSwitch *ngIf="isEditable" formControlName="birthDateCalculated"></p-inputSwitch>
-      </div>
-      <div class="animal-line" *ngIf="animal?.sire">
-        <span class="animal-param">Sire</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.sire }}</span>
-        <input type="text" pInputText *ngIf="isEditable" formControlName="sire" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.breedingNumber">
-        <span class="animal-param">BreedingNumber</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.breedingNumber }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="breedingNumber" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.isOutOfBreedingWindow">
-        <span class="animal-param">Is Out Of Breeding Window</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.isOutOfBreedingWindow }}</span>
-        <p-inputSwitch *ngIf="isEditable" formControlName="isOutOfBreedingWindow"></p-inputSwitch>
-      </div>
-      <div class="animal-line" *ngIf="animal?.interval">
-        <span class="animal-param">Interval</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.interval }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="interval" />
-      </div>
-      <div class="animal-line" *ngIf="animal?.heatIndexPeak">
-        <span class="animal-param">Heat Index Peak</span>
-        <span class="animal-value" *ngIf="!isEditable">{{ animal?.heatIndexPeak }}</span>
-        <input type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="heatIndexPeak" />
-      </div>
-
+    <div class="animal-line" *ngIf="animal?.animalId && !isEditable">
+      <span class="animal-param">Animal Id</span>
+      <span class="animal-value">{{ animal?.animalId }}</span>
     </div>
-
+    <div class="animal-line" *ngIf="animal?.eventId && !isEditable">
+      <span class="animal-param">Event Id</span>
+      <span class="animal-value">{{ animal?.eventId }}</span>
+    </div>
+    <div class="animal-line" *ngIf="animal?.cowId && !isEditable">
+      <span class="animal-param">Cow Id</span>
+      <span class="animal-value">{{ animal?.cowId }}</span>
+    </div>
+    <div class="animal-line" *ngIf="animal?.newGroupId && !isEditable">
+      <span class="animal-param">New Group Id</span>
+      <span class="animal-value">{{ animal?.newGroupId }}</span>
+    </div>
+    <div class="animal-line" *ngIf="animal?.currentGroupId && !isEditable">
+      <span class="animal-param">Current Group Id</span>
+      <span class="animal-value">{{ animal?.currentGroupId }}</span>
+    </div>
+    <div class="animal-line" *ngIf="animal?.type || form.controls['type']">
+      <span class="animal-param">Type</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.type }}</span>
+      <input class="animal-value" type="text" *ngIf="isEditable" formControlName="type"/>
+    </div>
+    <div class="animal-line" *ngIf="animal?.newGroupName || form.controls['newGroupName']">
+      <span class="animal-param">New Group Name</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.newGroupName }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="newGroupName" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.currentGroupName || form.controls['currentGroupName']">
+      <span class="animal-param">Current Group Name</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.currentGroupName }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="currentGroupName" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.destinationGroup || form.controls['destinationGroup']">
+      <span class="animal-param">Destination Group</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.destinationGroup }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="destinationGroup" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.destinationGroupName || form.controls['destinationGroupName']">
+      <span class="animal-param">Destination Group Name</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.destinationGroupName }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="destinationGroupName" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.ageInDays || form.controls['ageInDays']">
+      <span class="animal-param">Age In Days</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.ageInDays }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="ageInDays" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.startDateTime || form.controls['startDateTime']">
+      <span class="animal-param">Date start</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.startDateTime }}</span>
+      <p-calendar class="animal-value" *ngIf="isEditable" formControlName="startDateTime" [minDate]="form?.controls['minDateValue']?.value" [maxDate]="form?.controls['endDateTime']?.value"></p-calendar>
+    </div>
+    <div class="animal-line" *ngIf="animal?.originalDateStart || form.controls['originalDateStart']">
+      <span class="animal-param">Original Date Start</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.originalDateStart }}</span>
+      <p-calendar class="animal-value" [minDate]="form?.controls['minDateValue']?.value" *ngIf="isEditable" formControlName="originalDateStart"></p-calendar>
+    </div>
+    <div class="animal-line" *ngIf="animal?.endDateTime || form.controls['endDateTime']">
+      <span class="animal-param">Date end</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.endDateTime }}</span>
+      <p-calendar class="animal-value" [minDate]="form?.controls['startDateTime']?.value" *ngIf="isEditable" formControlName="endDateTime"></p-calendar>
+    </div>
+    <div class="animal-line" *ngIf="animal?.minDateValue || form.controls['minDateValue']">
+      <span class="animal-param">Min date value</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.minDateValue }}</span>
+      <p-calendar class="animal-value" *ngIf="isEditable" formControlName="minDateValue"></p-calendar>
+    </div>
+    <div class="animal-line" *ngIf="animal?.lactationNumber || form.controls['lactationNumber']">
+      <span class="animal-param">Lactation number</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.lactationNumber }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="lactationNumber" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.oldLactationNumber || form.controls['oldLactationNumber']">
+      <span class="animal-param">Old lactation number</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.oldLactationNumber }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="oldLactationNumber" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.daysInLactation || form.controls['daysInLactation']">
+      <span class="animal-param">Days In Lactation</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.daysInLactation }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="daysInLactation" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.daysInPregnancy || form.controls['daysInPregnancy']">
+      <span class="animal-param">Days In Pregnancy</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.daysInPregnancy }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="daysInPregnancy" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.reportingDate || form.controls['reportingDate']">
+      <span class="animal-param">Reporting Date</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.reportingDate }}</span>
+      <p-calendar class="animal-value" *ngIf="isEditable" formControlName="reportingDate"></p-calendar>
+    </div>
+    <div class="animal-line" *ngIf="animal?.healthIndex || form.controls['healthIndex']">
+      <span class="animal-param">Health Index</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.healthIndex }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="healthIndex" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.healthIndexPeak || form.controls['healthIndexPeak']">
+      <span class="animal-param">Heat Index Peak</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.healthIndexPeak }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="healthIndexPeak" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.duration || form.controls['duration']">
+      <span class="animal-param">Duration</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.duration }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="duration" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.alertType || form.controls['alertType']">
+      <span class="animal-param">Alert Type</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.alertType }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="alertType" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.calvingEase || form.controls['calvingEase']">
+      <span class="animal-param">Calving Ease</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.calvingEase }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="calvingEase" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.newBorns || form.controls['newBorns']">
+      <span class="animal-param">New Borns</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.newBorns }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="newBorns" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.cowEntryStatus || form.controls['cowEntryStatus']">
+      <span class="animal-param">Cow Entry Status</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.cowEntryStatus }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="cowEntryStatus" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.birthDateCalculated || form.controls['birthDateCalculated']">
+      <span class="animal-param">Birth Date Calculated</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.birthDateCalculated }}</span>
+      <p-inputSwitch class="animal-value" *ngIf="isEditable" formControlName="birthDateCalculated"></p-inputSwitch>
+    </div>
+    <div class="animal-line" *ngIf="animal?.sire || form.controls['sire']">
+      <span class="animal-param">Sire</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.sire }}</span>
+      <input class="animal-value" type="text" pInputText *ngIf="isEditable" formControlName="sire" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.breedingNumber || form.controls['breedingNumber']">
+      <span class="animal-param">BreedingNumber</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.breedingNumber }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="breedingNumber" />
+    </div>
+    <div class="animal-line" *ngIf="animal?.isOutOfBreedingWindow || form.controls['isOutOfBreedingWindow']">
+      <span class="animal-param">Is Out Of Breeding Window</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.isOutOfBreedingWindow }}</span>
+      <p-inputSwitch class="animal-value" *ngIf="isEditable" formControlName="isOutOfBreedingWindow"></p-inputSwitch>
+    </div>
+    <div class="animal-line" *ngIf="animal?.interval || form.controls['interval']">
+      <span class="animal-param">Interval</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.interval }}</span>
+      <input class="animal-value" type="number" [min]="0" pInputText *ngIf="isEditable" formControlName="interval" />
+    </div>
   </div>
 </form>
-
 
 <div class="loading" *ngIf="isInProgress"></div>

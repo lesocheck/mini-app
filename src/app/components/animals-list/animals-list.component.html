@@ -5,6 +5,9 @@
       Back
     </a>
   </div>
+  <div class="vertA-middle">
+    <p-button icon="pi pi-plus" (onClick)="addNewItem()"></p-button>
+  </div>
 </div>
 <div class="content__body">
   <app-table [records$]="records$"

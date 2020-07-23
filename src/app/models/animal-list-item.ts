@@ -1,44 +1,46 @@
-import {IAnimalListItemApiContract} from "../api-contract";
+import {IAnimalListItemApiContract} from '../api-contract';
 
 export interface IAnimalListItem {
-  type: string,
-  cowId: number,
-  animalId: string,
-  eventId: number,
-  deletable: boolean,
-  lactationNumber: number,
-  daysInLactation: number,
-  ageInDays: number,
-  startDateTime: number,
-  endDateTime: number,
-  newGroupId?: number,
-  currentGroupId?: number, 
-  newGroupName?: string,
-  currentGroupName?:string,
-  destinationGroup?: number,
-  destinationGroupName?: string,
-  originalDateStart?: number,
-  minDateValue?: number,
-  oldLactationNumber?: number,
-  daysInPregnancy?: number,
-  reportingDate?: number,
-  healthIndex?: number,
-  healthIndexPeak?: string,
-  duration?: number,
-  alertType?: string,
-  calvingEase?: string,
-  newBorns?: number,
-  cowEntryStatus?: string,
-  birthDateCalculated?: boolean
-  sire?: string,
-  breedingNumber?: number,
-  isOutOfBreedingWindow?: boolean,
-  interval?: number,
-  heatIndexPeak?: string
+  id?: string;
+  type?: string;
+  cowId?: number;
+  animalId?: string;
+  eventId?: number;
+  deletable?: boolean;
+  lactationNumber?: number;
+  daysInLactation?: number;
+  ageInDays?: number;
+  startDateTime?: number;
+  endDateTime?: number;
+  newGroupId?: number;
+  currentGroupId?: number;
+  newGroupName?: string;
+  currentGroupName?: string;
+  destinationGroup?: number;
+  destinationGroupName?: string;
+  originalDateStart?: number;
+  minDateValue?: number;
+  oldLactationNumber?: number;
+  daysInPregnancy?: number;
+  reportingDate?: number;
+  healthIndex?: number;
+  healthIndexPeak?: string;
+  duration?: number;
+  alertType?: string;
+  calvingEase?: string;
+  newBorns?: number;
+  cowEntryStatus?: string;
+  birthDateCalculated?: boolean;
+  sire?: string;
+  breedingNumber?: number;
+  isOutOfBreedingWindow?: boolean;
+  interval?: number;
+  heatIndexPeak?: string;
 }
 
 export function getAnimalListItem(contract: IAnimalListItemApiContract): IAnimalListItem {
   return {
+    id: contract.id ? contract.id : null,
     type: contract.type,
     cowId: contract.cowId,
     animalId: contract.animalId,
@@ -52,7 +54,7 @@ export function getAnimalListItem(contract: IAnimalListItemApiContract): IAnimal
     newGroupId: contract.newGroupId,
     currentGroupId: contract.currentGroupId,
     newGroupName: contract.newGroupName,
-    currentGroupName:contract.currentGroupName,
+    currentGroupName: contract.currentGroupName,
     destinationGroup: contract.destinationGroup,
     destinationGroupName: contract.destinationGroupName,
     originalDateStart: contract.originalStartDateTime,
@@ -73,5 +75,45 @@ export function getAnimalListItem(contract: IAnimalListItemApiContract): IAnimal
     isOutOfBreedingWindow: contract.isOutOfBreedingWindow,
     interval: contract.interval,
     heatIndexPeak: contract.healthIndexPeak
-  }
+  };
+}
+
+export function getAnimalListItemApiContract(item: IAnimalListItem): IAnimalListItemApiContract {
+  return {
+    id: item.id ? item.id : null,
+    type: item.type,
+    cowId: item.cowId,
+    animalId: item.animalId,
+    eventId: item.eventId,
+    deletable: item.deletable,
+    lactationNumber: item.lactationNumber,
+    daysInLactation: item.daysInLactation,
+    ageInDays: item.ageInDays,
+    startDateTime: item.startDateTime,
+    endDateTime: item.endDateTime,
+    newGroupId: item.newGroupId,
+    currentGroupId: item.currentGroupId,
+    newGroupName: item.newGroupName,
+    currentGroupName: item.currentGroupName,
+    destinationGroup: item.destinationGroup,
+    destinationGroupName: item.destinationGroupName,
+    originalStartDateTime: item.originalDateStart,
+    minValueDateTime: item.minDateValue,
+    oldLactationNumber: item.oldLactationNumber,
+    daysInPregnancy: item.daysInPregnancy,
+    reportingDate: item.reportingDate,
+    healthIndex: item.healthIndex,
+    healthIndexPeak: item.healthIndexPeak,
+    duration: item.duration,
+    alertType: item.alertType,
+    calvingEase: item.calvingEase,
+    newBorns: item.newBorns,
+    cowEntryStatus: item.cowEntryStatus,
+    birthDateCalculated: item.birthDateCalculated,
+    sire: item.sire,
+    breedingNumber: item.breedingNumber,
+    isOutOfBreedingWindow: item.isOutOfBreedingWindow,
+    interval: item.interval,
+    heatIndexPeak: item.healthIndexPeak
+  };
 }

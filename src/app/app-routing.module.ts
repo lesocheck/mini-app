@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainComponent },
   { path: 'animals', component: AnimalsListComponent },
-  { path: 'animal/:animalId', component: AnimalItemComponent }
+  { path: 'animal/:id', component: AnimalItemComponent },
+  { path: 'animalAdd/:add', component: AnimalItemComponent }
 ];
 
 @NgModule({

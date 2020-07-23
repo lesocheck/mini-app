@@ -37,7 +37,7 @@ import { environment } from '../environments/environment';
     AnimalsListComponent,
     MainComponent
   ],
-  declarations: [TableComponent, PaginatorComponent, AnimalsListComponent, AnimalItemComponent,MainComponent],
+  declarations: [TableComponent, PaginatorComponent, AnimalsListComponent, AnimalItemComponent, MainComponent],
   bootstrap: [],
   providers: []
 })

@@ -3,8 +3,6 @@ import {AnimalsService} from '../../services/animals.service';
 import { Router} from '@angular/router';
 import {IQueryParameters, Paginated} from '../../helpers';
 import {IAnimalListItem} from '../../models';
-import {takeWhile} from 'rxjs/operators';
-import {Observable} from 'rxjs';
 
 @Component({
   templateUrl: './animals-list.component.html',
@@ -13,13 +11,10 @@ import {Observable} from 'rxjs';
 export class AnimalsListComponent implements OnInit, OnDestroy {
 
   isAlive = true;
-
   records$: Paginated<IAnimalListItem>;
   qp: IQueryParameters = {
-    offset: 0,
-    limit: 10,
-    sortBy: 'cowId',
-    isAscending: true
+    startAt: 0,
+    endAt: 10
   };
 
   constructor(private as: AnimalsService, private router: Router) { }
@@ -27,38 +22,26 @@ export class AnimalsListComponent implements OnInit, OnDestroy {
   get isInProgress() {
     return !this.records$;
   }
-  policies: any[];
+
   ngOnInit(): void {
     this.getData$();
   }
 
   getData$() {
-    this.as.loadAnimalList(this.qp)
-      .pipe(takeWhile(() => this.isAlive))
-      .subscribe((items) => {
-      this.records$ = items;
-
-        console.log(this.records$)
-    });
-
-
-    this.as.loadAnimalList2().subscribe(data => {
-      this.records$ = {
-        result: data.map(e => {
-          return {
-            ...e.payload.doc.data()
-          } as any;
-        })
-      }
-      console.log(this.records$)
+    this.as.loadAnimalList(this.qp).subscribe(data => {
+      const query = data.query;
+      this.records$ = data;
+      this.records$.result = this.records$.result.reverse().slice(query.startAt, query.endAt);
     });
 
   }
 
+
   navigateToPage(page: number) {
     this.qp = {
       ...this.qp,
-      offset: page * 10
+      startAt: page * 10 - 10,
+      endAt: page * 10
     };
     this.getData$();
   }
@@ -69,6 +52,10 @@ export class AnimalsListComponent implements OnInit, OnDestroy {
 
   async navigateToItem(id) {
     this.router.navigate(['animal', id ]);
+  }
+
+  addNewItem() {
+    this.router.navigate(['animalAdd', true]);
   }
 
   ngOnDestroy() {

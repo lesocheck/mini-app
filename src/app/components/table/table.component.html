@@ -6,6 +6,7 @@
       <p-table [value]="records$?.result">
         <ng-template pTemplate="header">
           <tr>
+            <th>№</th>
             <th>Animal Id</th>
             <th>Event Id</th>
             <th>Cow Id</th>
@@ -39,11 +40,11 @@
             <th>BreedingNumber</th>
             <th>Is Out Of Breeding Window</th>
             <th>Interval</th>
-            <th>Heat Index Peak</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-cow>
-          <tr (click)="onRowClicked(cow.animalId)">
+        <ng-template pTemplate="body" let-cow let-rowIndex="rowIndex">
+          <tr (click)="onRowClicked(cow.id)">
+            <td>{{rowIndex + 1}}</td>
             <td>{{cow.animalId}}</td>
             <td>{{cow.eventId}}</td>
             <td>{{cow.cowId}}</td>
@@ -76,7 +77,6 @@
             <td>{{cow.breedingNumber}}</td>
             <td>{{cow.isOutOfBreedingWindow}}</td>
             <td>{{cow.interval}}</td>
-            <td>{{cow.heatIndexPeak}}</td>
           </tr>
         </ng-template>
       </p-table>
@@ -84,7 +84,7 @@
   </div>
   <div>
     <table-paginator
-      [rowsPerPage]="qp?.limit"
+      [rowsPerPage]="qp?.endAt"
       [totalRows]="records$?.totalRecords"
       [pagesCount]="getPageCount()"
       [currentPage]="getPageNumber()"
