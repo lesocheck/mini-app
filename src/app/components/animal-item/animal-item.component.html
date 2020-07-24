@@ -9,9 +9,8 @@
     <p-button icon="pi pi-save" *ngIf="isEditable" (onClick)="isAdd ? save(true) : save(false)"></p-button>
     <p-splitButton *ngIf="!isAdd" label="Save" icon="pi pi-ellipsis-v" [model]="menuItems"></p-splitButton>
   </div>
-
-
 </div>
+
 <form [formGroup]="form">
   <div class="content__body">
     <div class="animal-line" *ngIf="animal?.animalId && !isEditable">
@@ -146,7 +145,7 @@
     </div>
     <div class="animal-line" *ngIf="animal?.birthDateCalculated || form.controls['birthDateCalculated']">
       <span class="animal-param">Birth Date Calculated</span>
-      <span class="animal-value" *ngIf="!isEditable">{{ animal?.birthDateCalculated }}</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.birthDateCalculated ? 'Yes' : 'No' }}</span>
       <p-inputSwitch class="animal-value" *ngIf="isEditable" formControlName="birthDateCalculated"></p-inputSwitch>
     </div>
     <div class="animal-line" *ngIf="animal?.sire || form.controls['sire']">
@@ -161,7 +160,7 @@
     </div>
     <div class="animal-line" *ngIf="animal?.isOutOfBreedingWindow || form.controls['isOutOfBreedingWindow']">
       <span class="animal-param">Is Out Of Breeding Window</span>
-      <span class="animal-value" *ngIf="!isEditable">{{ animal?.isOutOfBreedingWindow }}</span>
+      <span class="animal-value" *ngIf="!isEditable">{{ animal?.isOutOfBreedingWindow ? 'Yes' : 'No'  }}</span>
       <p-inputSwitch class="animal-value" *ngIf="isEditable" formControlName="isOutOfBreedingWindow"></p-inputSwitch>
     </div>
     <div class="animal-line" *ngIf="animal?.interval || form.controls['interval']">

@@ -145,6 +145,7 @@ export class AnimalItemComponent implements OnInit, OnDestroy {
       ...this.form.value
     } as IAnimalListItem;
     if (this.isAdd){
+      item.cowId = this.generateCowId();
       this.as.addNewAnimal(item);
     } else {
       item.id = this.animal.id;
@@ -155,18 +156,24 @@ export class AnimalItemComponent implements OnInit, OnDestroy {
   }
 
   goBack() {
-    this.isEditable ? this.isEditable = false : this.router.navigate(['animals']);
+    this.isEditable &&  !this.isAdd ? this.isEditable = false : this.router.navigate(['animals']);
   }
 
   ngOnDestroy() {
     this.isAlive = false;
   }
 
+  // parsing data format
   private formatDate() {
     const dateArreyKeys = ['startDateTime', 'originalDateStart', 'endDateTime', 'minDateValue', 'reportingDate'];
     dateArreyKeys.forEach(key => {
       this.form.value[key] = this.form.value[key] ? Date.parse(this.form.value[key]) : null;
     });
+  }
+
+  // genereting new CowId
+  private generateCowId() {
+    return  Math.max.apply(null, this.as.publickCowIds) + 1;
   }
 
 }

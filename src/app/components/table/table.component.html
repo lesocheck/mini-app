@@ -73,10 +73,10 @@
             <td>{{cow.calvingEase}}</td>
             <td>{{cow.newBorns}}</td>
             <td>{{cow.cowEntryStatus}}</td>
-            <td>{{cow.birthDateCalculated}}</td>
+            <td>{{cow.birthDateCalculated ? 'Yes' : 'No'}}</td>
             <td>{{cow.sire}}</td>
             <td>{{cow.breedingNumber}}</td>
-            <td>{{cow.isOutOfBreedingWindow}}</td>
+            <td>{{cow.isOutOfBreedingWindow ? 'Yes' : 'No'}}</td>
             <td>{{cow.interval}}</td>
           </tr>
         </ng-template>

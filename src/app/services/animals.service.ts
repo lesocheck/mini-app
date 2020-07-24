@@ -10,19 +10,25 @@ import {AngularFirestore} from '@angular/fire/firestore';
 @Injectable({ providedIn: 'root' })
 
 export class AnimalsService {
+
+  publickCowIds: number[];
+
   constructor( private router: Router, private firestore: AngularFirestore) { }
 
+  // get animal list data
   loadAnimalList(qp: IQueryParameters): Observable<Paginated<IAnimalListItem>> {
-    return this.firestore.collection('result')
+    return this.firestore.collection('result', ref => ref
+      .orderBy('cowId', 'asc')
+    )
       .snapshotChanges()
-      .pipe(map(t  => new Paginated(qp, t.map(e  =>
-        ({
-            id: e.payload.doc.id,
-            ...e.payload.doc.data() as IAnimalListItemApiContract
-        })
-      ), t.length).mapTo(getAnimalListItem) ));
+      .pipe(map(t  => {
+        this.getCowIdsArrey(t);
+        return new Paginated(qp, t.map(e  => this.formatingData(e)
+      ), t.length).mapTo(getAnimalListItem);
+      }));
   }
 
+  // get animal item data
   loadAnimalItem(id: string) {
     return this.firestore.collection('result').doc(id).get()
       .pipe(map(t  =>
@@ -33,6 +39,7 @@ export class AnimalsService {
       ));
   }
 
+  // update animal item
   saveAnimalChanges(item: IAnimalListItem) {
     this.firestore.doc('result/' + item.id).update(item).then(() => {
       console.log('Document successfully updated!');
@@ -42,6 +49,7 @@ export class AnimalsService {
     });
   }
 
+  // add new animal item
   addNewAnimal(item: IAnimalListItem) {
     return this.firestore.collection('result').add(item).then(() => {
       console.log('Document successfully created!');
@@ -51,6 +59,7 @@ export class AnimalsService {
     });
   }
 
+  // delete animal item
   deleteAnimal(id: string) {
     this.firestore.doc('result/' + id).delete().then(() => {
       console.log('Document successfully deleted!');
@@ -58,5 +67,18 @@ export class AnimalsService {
     }).catch((error) => {
       console.error('Error removing document: ', error);
     });
+  }
+
+  // server data formatting
+  private formatingData(e){
+    return {
+      id: e.payload.doc.id,
+      ...e.payload.doc.data() as IAnimalListItemApiContract
+    };
+  }
+
+  // create CowIds arrey, it's used for generete a new CowId
+  private getCowIdsArrey(arr: any) {
+    this.publickCowIds = arr.map(item => this.formatingData(item).cowId);
   }
 }
